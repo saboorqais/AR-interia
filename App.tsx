@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useContext} from 'react';
 import Login from './src/components/Login/Login';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -19,14 +19,17 @@ import ProductPage from './src/components/ProductPage/ProductPage';
 import { Provider } from 'react-redux';
 import store from './src/redux/configureStore';
 import Cart from './src/components/Cart/Cart';
-import { TouchableOpacity } from 'react-native';
+import {SafeAreaView, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { BASE_URL } from "@env";
+import {CartContext, CartContextProvider} from "./src/Utils/Context/cartContext";
+import ARUnity from "./src/components/ARUnity/ARUnity";
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
-    console.log(BASE_URL)
+    const context = useContext(CartContext)
   return (
+
       <Provider
           store={store}
       >
@@ -74,11 +77,12 @@ function App(): JSX.Element {
                             navigation.navigate("Cart")
                           }}>
                             <VStack>
+
                               <Badge // bg="red.400"
                                   colorScheme="danger" rounded="full" mb={-1} mr={2} zIndex={1} variant="solid" alignSelf="flex-end" _text={{
                                 fontSize: 10
                               }}>
-                                2
+                                  {context?.cartItems.length}
                               </Badge>
                               <Icon name="shopping-cart" size={20} color="black" />
                             </VStack>
@@ -89,11 +93,21 @@ function App(): JSX.Element {
                     )
                   })}
               />
+                <Stack.Screen
+                    name="ARView"
+                    component={ARUnity}
+                    options={({ route,navigation }: any) => ({
+
+
+                    })}
+                />
 
             </Stack.Navigator>
           </NativeBaseProvider>
         </NavigationContainer>
+
       </Provider>
+
   );
 }
 

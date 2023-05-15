@@ -121,10 +121,19 @@ console.log("running")
           </Flex>
           <View style={styles.LiveContainer}>
             <Text style={styles.Heading}>Live View</Text>
+            <TouchableOpacity
+            onPress={()=>{
+              navigation.navigate("ARView")
 
-            <Button _text={{color: 'white'}} mt={4} variant="interia">
-              Open AR Designer
-            </Button>
+            }}
+            >
+              <Button
+
+                  _text={{color: 'white'}} mt={4} variant="interia">
+                Open AR Designer
+              </Button>
+            </TouchableOpacity>
+
           </View>
         </NativeBaseProvider>
       </View>

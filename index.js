@@ -5,5 +5,17 @@
 import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
+import {CartContextProvider} from "./src/Utils/Context/cartContext";
 
-AppRegistry.registerComponent(appName, () => App);
+
+function  Index(){
+
+    return (
+        <CartContextProvider>
+        <App/>
+        </CartContextProvider>
+    )
+}
+
+
+AppRegistry.registerComponent(appName,() => Index);

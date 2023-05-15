@@ -1,22 +1,26 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { Center, Container, Heading, Image, VStack, Text, HStack, Badge, Button, useToast, Box } from 'native-base';
+import {StyleSheet, TouchableOpacity, View} from 'react-native'
+import React, {useContext} from 'react'
+import {Center, Container, Heading, Image, VStack, Text, HStack, Badge, Button, useToast, Box} from 'native-base';
 import image from '../../../assets/images/sofa.png'
-const ProductPage = ({route, navigation }) => {
+import {CartContext} from "../../Utils/Context/cartContext";
+
+const ProductPage = ({route, navigation}) => {
     const toast = useToast();
-const data = route.params.item
+    var data = route.params.item
+    const context = useContext(CartContext)
+    console.log(context)
     console.log(data)
     return (
-        <VStack flex={1} bg="white" space={4} alignItems="center" w={"full"} >
+        <VStack flex={1} bg="white" space={4} alignItems="center" w={"full"}>
             <Container w="full" h="200"
-                mt={10}
-                style={{ backgroundColor: "#F3F3F3" }}
-                rounded={"md"}
-                alignItems="center"
-                justifyContent={"center"}
+                       mt={10}
+                       style={{backgroundColor: "#F3F3F3"}}
+                       rounded={"md"}
+                       alignItems="center"
+                       justifyContent={"center"}
             >
                 <Image
-                    source={{uri:data.image}}
+                    source={{uri: data.image}}
                     alt="Alternate Text"
                     size="70%"
                     backgroundColor={'#F3F3F3'}
@@ -29,10 +33,10 @@ const data = route.params.item
                 <Text color={"#959595"}>{data.description}</Text>
             </VStack>
             <Container w="full" h="60"
-                style={{ backgroundColor: "#F3F3F3" }}
-                rounded={"md"}
-                alignItems="center"
-                justifyContent={"center"}
+                       style={{backgroundColor: "#F3F3F3"}}
+                       rounded={"md"}
+                       alignItems="center"
+                       justifyContent={"center"}
             >
                 <HStack w={"full"} justifyContent={"space-between"} pr={2} pl={2}>
                     <Heading size={"md"} color={"#313131"}>Available Colors</Heading>
@@ -58,10 +62,10 @@ const data = route.params.item
 
             </Container>
             <Container w="full" h="60"
-                style={{ backgroundColor: "#F3F3F3" }}
-                rounded={"md"}
-                alignItems="center"
-                justifyContent={"center"}
+                       style={{backgroundColor: "#F3F3F3"}}
+                       rounded={"md"}
+                       alignItems="center"
+                       justifyContent={"center"}
             >
                 <HStack w={"full"} justifyContent={"space-between"} pr={2} pl={2}>
                     <Heading size={"md"} color={"#313131"}>Basic Price</Heading>
@@ -84,21 +88,36 @@ const data = route.params.item
                             </Box>;
                         }
                     });
+                    console.log("This log is from Product Page")
+                    console.log(context.cartItems)
+                    context.setCartItems([...context.cartItems,data])
+
+
+
+
 
                 }}>
-                    <Button _text={{ color: 'white' }} mt={4} variant="interia">
+                    <Button _text={{color: 'white'}} mt={4} variant="interia">
                         Add to Cart
                     </Button>
                 </TouchableOpacity>
-                <TouchableOpacity>
-                    <Button _text={{ color: 'white' }} mt={4} variant="interia">
+                <TouchableOpacity
+                onPress = {()=>{
+                    navigation.navigate("ARView")
+
+
+                }
+
+
+                }
+                >
+                    <Button _text={{color: 'white'}} mt={4} variant="interia">
                         Open AR Designer
                     </Button>
 
                 </TouchableOpacity>
 
             </View>
-
 
 
         </VStack>
